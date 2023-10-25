@@ -38,7 +38,7 @@ class BaseListCrawler(BaseCrawler, abc.ABC):
                     result = response.json()
 
                     if len(result) == 0:
-                        info_logger.log('fetch completed!')
+                        info_logger.info('fetch completed!')
                         break
 
                     with open(f'{folder_path}/{self._current_page}.json', 'w') as f:
