@@ -1,9 +1,12 @@
 import argparse
 
 from const import GH_TOKEN
-from utils import PullCrawler, CommitCrawler
+from utils import PullCrawler, CommitCrawler, SingleCommitCrawler, PullReviewsCrawler, PullCommitsCrawler, \
+    PullFilesCrawler
 from utils.logger import info_logger
 
+
+# todo: refactor
 
 def validate_args(args):
     if args.current_page < 1:
@@ -28,8 +31,6 @@ def crawl_pull_requests(args):
         info_logger.info(e)
 
 
-# \033[91m
-
 def crawl_commits(args):
     try:
         validate_args(args)
@@ -42,6 +43,71 @@ def crawl_commits(args):
             repo_name=args.r_name[0],
         ).crawl()
     except Exception as e:
+        # todo: add color
+        info_logger.info(e)
+
+
+def crawl_pull_commits(args):
+    try:
+        validate_args(args)
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling pull commits!')
+        PullCommitsCrawler(
+            current_page=args.current_page,
+            token=GH_TOKEN,
+            repo_owner=args.r_owner[0],
+            repo_name=args.r_name[0],
+        ).crawl()
+    except Exception as e:
+        # todo: add color
+        info_logger.info(e)
+
+
+def crawl_pull_reviews(args):
+    try:
+        validate_args(args)
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling pull reviews!')
+        PullReviewsCrawler(
+            current_page=args.current_page,
+            token=GH_TOKEN,
+            repo_owner=args.r_owner[0],
+            repo_name=args.r_name[0],
+        ).crawl()
+    except Exception as e:
+        # todo: add color
+        info_logger.info(e)
+
+
+def crawl_pull_files(args):
+    try:
+        validate_args(args)
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling pull files!')
+        PullFilesCrawler(
+            current_page=args.current_page,
+            token=GH_TOKEN,
+            repo_owner=args.r_owner[0],
+            repo_name=args.r_name[0],
+        ).crawl()
+    except Exception as e:
+        # todo: add color
+        info_logger.info(e)
+
+
+def crawl_single_commits(args):
+    try:
+        validate_args(args)
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling single commits!')
+        SingleCommitCrawler(
+            current_page=args.current_page,
+            token=GH_TOKEN,
+            repo_owner=args.r_owner[0],
+            repo_name=args.r_name[0],
+        ).crawl()
+    except Exception as e:
+        # todo: add color
         info_logger.info(e)
 
 
@@ -82,6 +148,10 @@ global_parser.add_argument(
 FUNCTION_MAP = {
     'pull-requests': crawl_pull_requests,
     'commits': crawl_commits,
+    'pull-commits': crawl_single_commits,
+    'pull-files': crawl_pull_files,
+    'pull-reviews': crawl_pull_reviews,
+    'single-commits': crawl_single_commits,
 }
 
 global_parser.add_argument('command', choices=FUNCTION_MAP.keys())
