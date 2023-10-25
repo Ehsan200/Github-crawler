@@ -7,6 +7,7 @@ import requests
 
 from const import BASE_FOLDER_NAME
 from .base_crawler import BaseCrawler
+from .logger import info_logger
 from .utility import get_all_commit_ids
 
 
@@ -59,24 +60,24 @@ class SingleCommitCrawler(BaseCrawler):
 
                         with open(self.final_file_name, 'w') as f:
                             json.dump(result, f)
-                            print(f'fetch completed for "{self._commit_sha}"!')
+                            info_logger.info(f'fetch completed for "{self._commit_sha}"!')
 
                         # get out of while True loop and go to next commit to fetch
                         break
 
                     else:
-                        print('status code: {0}'.format(response.status_code))
+                        info_logger.info('status code: {0}'.format(response.status_code))
                         if response.status_code == 404:
-                            print('shutting down!')
+                            info_logger.info('shutting down!')
                             return
-                        print(f'error in fetch. commit sha: "{self._commit_sha}" try again in 5 minutes!')
+                        info_logger.info(f'error in fetch. commit sha: "{self._commit_sha}" try again in 5 minutes!')
 
-                        print('---')
-                        print(response.content)
-                        print('---')
+                        info_logger.info('---')
+                        info_logger.info(response.content)
+                        info_logger.info('---')
                         # sleep for 5 minutes
                         sleep(5 * 60)
                 except Exception as e:
-                    print(e)
+                    info_logger.info(e)
                     # sleep for a minute if exception has been raised
                     sleep(1 * 60)

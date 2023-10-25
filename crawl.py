@@ -2,6 +2,7 @@ import argparse
 
 from const import GH_TOKEN
 from utils import PullCrawler, CommitCrawler
+from utils.logger import info_logger
 
 
 def validate_args(args):
@@ -14,8 +15,8 @@ def validate_args(args):
 def crawl_pull_requests(args):
     try:
         validate_args(args)
-        print(f'project={args.r_owner[0]}/{args.r_name[0]}')
-        print('start crawling prs!')
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling prs!')
         PullCrawler(
             current_page=args.current_page,
             token=GH_TOKEN,
@@ -24,7 +25,7 @@ def crawl_pull_requests(args):
         ).crawl()
     except Exception as e:
         # todo: add color
-        print(e)
+        info_logger.info(e)
 
 
 # \033[91m
@@ -32,8 +33,8 @@ def crawl_pull_requests(args):
 def crawl_commits(args):
     try:
         validate_args(args)
-        print(f'project={args.r_owner[0]}/{args.r_name[0]}')
-        print('start crawling commits!')
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling commits!')
         CommitCrawler(
             current_page=args.current_page,
             token=GH_TOKEN,
@@ -41,7 +42,7 @@ def crawl_commits(args):
             repo_name=args.r_name[0],
         ).crawl()
     except Exception as e:
-        print(e)
+        info_logger.info(e)
 
 
 global_parser = argparse.ArgumentParser(

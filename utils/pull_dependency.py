@@ -1,4 +1,5 @@
 from const import BASE_FOLDER_NAME
+from .logger import info_logger
 from .pull_crawler import PullCrawler
 from .utility import get_all_pull_numbers
 
@@ -35,4 +36,4 @@ class PullDependency(PullCrawler):
             assert self._pull_number != 0
             self._current_page = 1
             super().crawl()
-            print(f'pull number {self._pull_number} for {self._dependency_name} completed')
+            info_logger.info(f'pull number {self._pull_number} for {self._dependency_name} completed')

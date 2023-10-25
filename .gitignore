@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 # crawled data should be ignored
 crawled-data/
+logs/
