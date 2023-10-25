@@ -3,8 +3,7 @@ import os
 
 FOLDER_PATH = 'logs'
 
-is_exists = os.path.exists(FOLDER_PATH)
-if not is_exists:
+if not os.path.exists(FOLDER_PATH):
     os.makedirs(FOLDER_PATH)
 
 logging.basicConfig(
