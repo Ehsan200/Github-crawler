@@ -169,6 +169,7 @@ FUNCTION_MAP = {
     'pull-reviews': crawl_pull_reviews,
     'pull-reviews-comments': crawl_pull_reviews_comments,
     'single-commits': crawl_single_commits,
+    'show-token': lambda _: print(GH_TOKEN)
 }
 
 global_parser.add_argument('command', choices=FUNCTION_MAP.keys())
