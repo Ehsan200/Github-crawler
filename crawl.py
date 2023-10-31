@@ -2,7 +2,7 @@ import argparse
 
 from const import GH_TOKEN
 from utils import PullCrawler, CommitCrawler, SingleCommitCrawler, PullReviewsCrawler, PullCommitsCrawler, \
-    PullFilesCrawler
+    PullFilesCrawler, PullReviewsCommentsCrawler
 from utils.logger import info_logger
 
 
@@ -53,6 +53,22 @@ def crawl_pull_commits(args):
         info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
         info_logger.info('start crawling pull commits!')
         PullCommitsCrawler(
+            current_page=args.current_page,
+            token=GH_TOKEN,
+            repo_owner=args.r_owner[0],
+            repo_name=args.r_name[0],
+        ).crawl()
+    except Exception as e:
+        # todo: add color
+        info_logger.info(e)
+
+
+def crawl_pull_reviews_comments(args):
+    try:
+        validate_args(args)
+        info_logger.info(f'project={args.r_owner[0]}/{args.r_name[0]}')
+        info_logger.info('start crawling pull comments!')
+        PullReviewsCommentsCrawler(
             current_page=args.current_page,
             token=GH_TOKEN,
             repo_owner=args.r_owner[0],
@@ -151,6 +167,7 @@ FUNCTION_MAP = {
     'pull-commits': crawl_single_commits,
     'pull-files': crawl_pull_files,
     'pull-reviews': crawl_pull_reviews,
+    'pull-reviews-comments': crawl_pull_reviews_comments,
     'single-commits': crawl_single_commits,
 }
 

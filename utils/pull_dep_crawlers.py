@@ -11,3 +11,7 @@ class PullReviewsCrawler(PullDependency):
 
 class PullCommitsCrawler(PullDependency):
     _dependency_name = 'commits'
+
+
+class PullReviewsCommentsCrawler(PullDependency):
+    _dependency_name = 'comments'
