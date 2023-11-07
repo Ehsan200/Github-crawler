@@ -164,7 +164,7 @@ global_parser.add_argument(
 FUNCTION_MAP = {
     'pull-requests': crawl_pull_requests,
     'commits': crawl_commits,
-    'pull-commits': crawl_single_commits,
+    'pull-commits': crawl_pull_commits,
     'pull-files': crawl_pull_files,
     'pull-reviews': crawl_pull_reviews,
     'pull-reviews-comments': crawl_pull_reviews_comments,
