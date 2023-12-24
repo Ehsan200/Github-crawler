@@ -8,7 +8,7 @@ import requests
 from const import BASE_FOLDER_NAME
 from .base_crawler import BaseCrawler
 from .logger import info_logger
-from .utility import get_all_commit_ids
+from .utility import get_all_commit_ids, get_all_reviews_commit_ids
 
 
 class SingleCommitCrawler(BaseCrawler):
@@ -24,7 +24,14 @@ class SingleCommitCrawler(BaseCrawler):
 
     @cached_property
     def all_commit_ids(self):
-        return get_all_commit_ids(f'{BASE_FOLDER_NAME}/{self._folder_name}/commit')
+        base_folder_path = f'{BASE_FOLDER_NAME}/{self._folder_name}'
+
+        return list(
+            set(
+                get_all_commit_ids(f'{base_folder_path}/commit') +
+                get_all_reviews_commit_ids(f'{base_folder_path}/pull')
+            )
+        )
 
     @property
     def final_file_name(self):
