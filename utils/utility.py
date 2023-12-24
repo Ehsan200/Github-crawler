@@ -25,10 +25,11 @@ def get_all_reviews_commit_ids(pull_folder_path):
     commit_ids = []
 
     for pr_number in pull_numbers:
-        json_files = _get_all_json_files_in_folder(pull_folder_path)
+        base_pr_review_path = f'{pull_folder_path}/{pr_number}/reviews/'
+        json_files = _get_all_json_files_in_folder(base_pr_review_path)
 
         for json_file in json_files:
-            with open(f'{pull_folder_path}/{pr_number}/reviews/{json_file}', 'r') as f:
+            with open(f'{base_pr_review_path}/{json_file}', 'r') as f:
                 data = json.load(f)
 
                 commit_ids += [
