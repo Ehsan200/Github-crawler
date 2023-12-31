@@ -33,7 +33,7 @@ def get_all_reviews_commit_ids(pull_folder_path):
                 data = json.load(f)
 
                 commit_ids += [
-                    _['commit_id'] for _ in data
+                    _['commit_id'] for _ in data if 'commit_id' in _
                 ]
 
     return commit_ids
