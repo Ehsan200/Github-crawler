@@ -23,12 +23,12 @@ You need to have Python and pip installed on your machine. You can download Pyth
 
 Before running the project, you need to set the following environment variable:
 
-- `GITHUB_TOKEN`: Your personal GitHub token. This is required to authenticate with the GitHub API and increase the rate limit. You can generate a personal access token from [here](https://github.com/settings/tokens).
+- `GH_TOKEN`: Your personal GitHub token. This is required to authenticate with the GitHub API and increase the rate limit. You can generate a personal access token from [here](https://github.com/settings/tokens).
 
 You can set the environment variable in your terminal like this:
 
 ```bash
-export GITHUB_TOKEN=your_token_here
+export GH_TOKEN=your_token_here
 ```
 
 Replace `your_token_here` with your actual GitHub token. This command needs to be run in the same terminal session before you start the application. If you close the terminal or start a new session, you will need to run the command again.
